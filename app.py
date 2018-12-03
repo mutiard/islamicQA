@@ -32,17 +32,9 @@ app = Flask(__name__)
 
 # get channel_secret and channel_access_token from your environment variable
 # change channel_secret and channel_access_token from your line developer
-channel_secret = os.getenv('LINE_CHANNEL_SECRET', '4167c219ca41190c2fc1fcb19db9d35d')
-channel_access_token = os.getenv('LINE_CHANNEL_ACCESS_TOKEN', 'elmhNi30051HIw/rlwT41z63GqmvNVr2SLQR0qu9W4EamRh9of4IZeBo5HUwxuxCduqdCAeKVVFhFuZ1Qll/PiP9mQD6t86PJk0wps2TrpR15PB8ABdd10b0nn3FdumrSkmQNysPMXme8Tu3YJV1lwdB04t89/1O/w1cDnyilFU=')
-if channel_secret is None:
-    print('Specify LINE_CHANNEL_SECRET as environment variable.')
-    sys.exit(1)
-if channel_access_token is None:
-    print('Specify LINE_CHANNEL_ACCESS_TOKEN as environment variable.')
-    sys.exit(1)
 
-line_bot_api = LineBotApi(channel_access_token)
-handler = WebhookHandler(channel_secret)
+line_bot_api = LineBotApi('elmhNi30051HIw/rlwT41z63GqmvNVr2SLQR0qu9W4EamRh9of4IZeBo5HUwxuxCduqdCAeKVVFhFuZ1Qll/PiP9mQD6t86PJk0wps2TrpR15PB8ABdd10b0nn3FdumrSkmQNysPMXme8Tu3YJV1lwdB04t89/1O/w1cDnyilFU=')
+handler = WebhookHandler('4167c219ca41190c2fc1fcb19db9d35d')
 
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
@@ -77,8 +69,11 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_text_message(event):
     question = event.message.text
-    answer = request_api(question)
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=answer))
+    if (question == 'halo'):
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='hai'))
+    else:
+        answer = request_api(question)
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=answer))
 
 def request_api(question):
     url = api_url + api_port + api_route
@@ -112,4 +107,3 @@ if __name__ == "__main__":
     make_static_tmp_dir()
 
     app.run(debug=options.debug, port=options.port)
-

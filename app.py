@@ -82,13 +82,13 @@ def request_api(question):
     response_data = ""
     while response_data == "":
         try:
-            print "ISSUING POST REQUEST..."
+            print ("ISSUING POST REQUEST...")
             session = requests.Session()
             req = session.post(url, data=payload, timeout=15)
             response_data = str(req.text)
         except:
-            print "Connection timeout..."
-            print "Retrying post request..."
+            print ("Connection timeout...")
+            print ("Retrying post request...")
             time.sleep(1)
             continue
     
@@ -104,6 +104,6 @@ if __name__ == "__main__":
     options = arg_parser.parse_args()
 
     # create tmp dir for download content
-    make_static_tmp_dir()
+#    make_static_tmp_dir()
 
     app.run(debug=options.debug, port=options.port)

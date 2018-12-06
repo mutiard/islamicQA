@@ -104,6 +104,6 @@ if __name__ == "__main__":
     options = arg_parser.parse_args()
 
     # create tmp dir for download content
-#    make_static_tmp_dir()
+    make_static_tmp_dir()
 
     app.run(debug=options.debug, port=options.port)

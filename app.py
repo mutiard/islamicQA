@@ -82,13 +82,13 @@ def request_api(question):
     response_data = ""
     while response_data == "":
         try:
-            print ("ISSUING POST REQUEST...")
+            print "ISSUING POST REQUEST..."
             session = requests.Session()
             req = session.post(url, data=payload, timeout=15)
             response_data = str(req.text)
         except:
-            print ("Connection timeout...")
-            print ("Retrying post request...")
+            print "Connection timeout..."
+            print "Retrying post request..."
             time.sleep(1)
             continue
     
